@@ -26,6 +26,18 @@
   height: 100%;
   text-align: center;
   padding-top: 30px;
+  cursor: auto;
+}
+
+.has-circle .circle {
+  display: block;
+  color: blue;
+  font-size: 100px;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  padding-top: 30px;
+  cursor: auto;
 }
 
 .box-1 {
