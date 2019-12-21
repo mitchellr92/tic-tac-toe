@@ -15,6 +15,11 @@
 }
 
 .inner i {
+  display: none;
+}
+
+.has-ex .ex {
+  display: block;
   color: blue;
   font-size: 100px;
   width: 100%;
