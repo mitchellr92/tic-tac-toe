@@ -1,152 +1,40 @@
-let innerBoxes = document.querySelectorAll(".inner");
+let origBoard;
+const huPlayer = "X";
+const aiPLayer = "O";
+const winCombos = [
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [6, 4, 2]
+];
 
-// Add ex to tile
-function clickBox() {
-  this.classList.add("has-ex");
+console.log(huPlayer, aiPLayer, winCombos)
 
-  innerBoxes = Array.from(innerBoxes);
-  let clickedBox;
-  let winner = false;
+const cells = document.querySelectorAll(".cell");
+startGame();
 
-  // Removes tiles that have ex from innerBoxes array
-  for (let i = 0; i < innerBoxes.length; i++) {
-    if (innerBoxes[i].classList.length === 3) {
-      clickedBox = innerBoxes[i];
-      clickedBox.disabled = true;
-      let index = innerBoxes.indexOf(clickedBox);
-      innerBoxes.splice(index, 1);
-    }
+function startGame() {
+  document.querySelector(".endgame").style.display = "none";
+  origBoard = Array.from(Array(9).keys());
+  for (let i = 0; i < cells.length; i++) {
+    cells[i].innerText = "";
+    cells[i].style.removeProperty("background-color");
+    cells[i].addEventListener("click", turnClick, false);
   }
-
-  // Adds circle to random tile after ex has been added
-  if (innerBoxes.length >= 1) {
-    let randBox = innerBoxes[Math.floor(Math.random() * innerBoxes.length)];
-    randBox.classList.add("has-circle");
-  }
-
-  // Removes tiles that have circle from innerBoxes array
-  for (let i = 0; i < innerBoxes.length; i++) {
-    if (innerBoxes[i].classList.length === 3) {
-      clickedBox = innerBoxes[i];
-      let index = innerBoxes.indexOf(clickedBox);
-      innerBoxes.splice(index, 1);
-    }
-  }
-  // console.log("log 2", innerBoxes);
-
-  // Checking for win condition
-  let boxesWithEx = document.querySelectorAll(".has-ex");
-  boxesWithEx = Array.from(boxesWithEx);
-  let boxArray = [];
-
-  for (let i = 0; i < boxesWithEx.length; i++) {
-    let boxNumber = boxesWithEx[i].classList[1];
-    boxArray.push(boxNumber);
-  }
-  // console.log(boxArray);
-  let exTiles = document.querySelectorAll(".has-ex");
-
-  if (
-    boxArray.includes("box-1") &&
-    boxArray.includes("box-2") &&
-    boxArray.includes("box-3")
-  ) {
-
-    let box1 = boxArray.includes("box-1");
-    console.log("box1", box1);
-
-    for (let i = 0; i < exTiles.length; i++) {
-      exTiles[i].classList.add("winner-horizontal");
-      console.log(exTiles[i]);
-    }
-    winner = true;
-    // console.log("Winner!", winner);
-  } else if (
-    boxArray.includes("box-4") &&
-    boxArray.includes("box-5") &&
-    boxArray.includes("box-6")
-  ) {
-    for (let i = 0; i < exTiles.length; i++) {
-      exTiles[i].classList.add("winner-horizontal");
-      // console.log(exTiles[i]);
-    }
-    winner = true;
-    // console.log("Winner!", winner);
-  } else if (
-    boxArray.includes("box-7") &&
-    boxArray.includes("box-8") &&
-    boxArray.includes("box-9")
-  ) {
-    for (let i = 0; i < exTiles.length; i++) {
-      exTiles[i].classList.add("winner-horizontal");
-      // console.log(exTiles[i]);
-    }
-    winner = true;
-    // console.log("Winner!", winner);
-  } else if (
-    boxArray.includes("box-1") &&
-    boxArray.includes("box-4") &&
-    boxArray.includes("box-7")
-  ) {
-    for (let i = 0; i < exTiles.length; i++) {
-      exTiles[i].classList.add("winner-vertical");
-      console.log(exTiles[i]);
-    }
-    winner = true;
-    console.log("Winner!", winner);
-  } else if (
-    boxArray.includes("box-2") &&
-    boxArray.includes("box-5") &&
-    boxArray.includes("box-8")
-  ) {
-    for (let i = 0; i < exTiles.length; i++) {
-      exTiles[i].classList.add("winner-vertical");
-      console.log(exTiles[i]);
-    }
-    winner = true;
-    console.log("Winner!", winner);
-  } else if (
-    boxArray.includes("box-3") &&
-    boxArray.includes("box-6") &&
-    boxArray.includes("box-9")
-  ) {
-    for (let i = 0; i < exTiles.length; i++) {
-      exTiles[i].classList.add("winner-vertical");
-      console.log(exTiles[i]);
-    }
-    winner = true;
-    console.log("Winner!", winner);
-  } else if (
-    boxArray.includes("box-3") &&
-    boxArray.includes("box-5") &&
-    boxArray.includes("box-7")
-  ) {
-    for (let i = 0; i < exTiles.length; i++) {
-      exTiles[i].classList.add("winner-diagonal-right");
-      console.log(exTiles[i]);
-    }
-    winner = true;
-    console.log("Winner!", winner);
-  } else if (
-    boxArray.includes("box-1") &&
-    boxArray.includes("box-5") &&
-    boxArray.includes("box-9")
-  ) {
-    for (let i = 0; i < exTiles.length; i++) {
-      exTiles[i].classList.add("winner-diagonal-left");
-      console.log(exTiles[i]);
-    }
-    winner = true;
-    console.log("Winner!", winner);
-  }
-
-  console.log(winner)
 }
 
-innerBoxes.forEach(box => box.addEventListener("click", clickBox));
+function turnClick(square) {
+  console.log(square)
+  turn(square.target.id, huPlayer);
+}
 
+function turn(squareId, player) {
+  origBoard[squareId] = player;
+  console.log(player)
+  document.getElementById(squareId).innerText = player;
+}
 
-
-// function miniMax(newBoard, player) {
-//   let availSpots = 
-// }
