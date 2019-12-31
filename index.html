@@ -12,37 +12,28 @@
     <title>Tic Tac Toe</title>
   </head>
   <body>
-    <div class="container">
-      <div class="box">
-        <div class="inner box-1">
-          <i class="far fa-circle circle"></i> <i class="fas fa-times ex"></i>
-        </div>
-        <div class="inner box-2">
-          <i class="far fa-circle circle"></i> <i class="fas fa-times ex"></i>
-        </div>
-        <div class="inner box-3">
-          <i class="far fa-circle circle"></i> <i class="fas fa-times ex"></i>
-        </div>
-        <div class="inner box-4">
-          <i class="far fa-circle circle"></i> <i class="fas fa-times ex"></i>
-        </div>
-        <div class="inner box-5">
-          <i class="far fa-circle circle"></i> <i class="fas fa-times ex"></i>
-        </div>
-        <div class="inner box-6">
-          <i class="far fa-circle circle"></i> <i class="fas fa-times ex"></i>
-        </div>
-        <div class="inner box-7">
-          <i class="far fa-circle circle"></i> <i class="fas fa-times ex"></i>
-        </div>
-        <div class="inner box-8">
-          <i class="far fa-circle circle"></i> <i class="fas fa-times ex"></i>
-        </div>
-        <div class="inner box-9">
-          <i class="far fa-circle circle"></i> <i class="fas fa-times ex"></i>
-        </div>
-      </div>
+    <table>
+      <tr>
+        <td class="cell" id=""></td>
+        <td class="cell" id=""></td>
+        <td class="cell" id=""></td>
+      </tr>
+      <tr>
+        <td class="cell" id=""></td>
+        <td class="cell" id=""></td>
+        <td class="cell" id=""></td>
+      </tr>
+      <tr>
+        <td class="cell" id=""></td>
+        <td class="cell" id=""></td>
+        <td class="cell" id=""></td>
+      </tr>
+    </table>
+
+    <div class="endgame">
+      <div class="text"></div>
     </div>
+    <button onClick="startGame()">Replay</button>
 
     <script src="main.js"></script>
   </body>

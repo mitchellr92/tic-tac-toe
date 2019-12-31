@@ -51,9 +51,13 @@ function clickBox() {
     boxArray.includes("box-2") &&
     boxArray.includes("box-3")
   ) {
+
+    let box1 = boxArray.includes("box-1");
+    console.log("box1", box1);
+
     for (let i = 0; i < exTiles.length; i++) {
       exTiles[i].classList.add("winner-horizontal");
-      // console.log(exTiles[i]);
+      console.log(exTiles[i]);
     }
     winner = true;
     // console.log("Winner!", winner);
@@ -140,3 +144,9 @@ function clickBox() {
 }
 
 innerBoxes.forEach(box => box.addEventListener("click", clickBox));
+
+
+
+// function miniMax(newBoard, player) {
+//   let availSpots = 
+// }
