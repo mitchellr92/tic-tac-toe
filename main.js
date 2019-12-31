@@ -1,6 +1,6 @@
 let origBoard;
 const huPlayer = "X";
-const aiPLayer = "O";
+const aiPlayer = "O";
 const winCombos = [
   [0, 1, 2],
   [3, 4, 5],
@@ -26,7 +26,11 @@ function startGame() {
 }
 
 function turnClick(square) {
-  turn(square.target.id, huPlayer);
+  if (typeof origBoard[square.target.id] == "number") {
+    turn(square.target.id, huPlayer);
+    if (!checkWin(origBoard, huPlayer) && !checkTile())
+      turn(bestSpot(), aiPlayer);
+  }
 }
 
 function turn(squareId, player) {
@@ -72,7 +76,7 @@ function emptySquares() {
 }
 
 function bestSpot() {
-  return emptySquares()[0];
+  return minMax(origBoard, aiPlayer).index;
 }
 
 function checkTile() {
@@ -85,4 +89,56 @@ function checkTile() {
     return true;
   }
   return false;
+}
+
+function minMax(newBoard, player) {
+  let availSpots = emptySquares();
+  if (checkWin(newBoard, huPlayer)) {
+    return { score: -10 };
+  } else if (checkWin(newBoard, aiPlayer)) {
+    return { score: 10 };
+  } else if (availSpots.length === 0) {
+    return { score: 0 };
+  }
+
+  let moves = [];
+
+  for (let i = 0; i < availSpots.length; i++) {
+    let move = {};
+    move.index = newBoard[availSpots[i]];
+    newBoard[availSpots[i]] = player;
+
+    if (player == aiPlayer) {
+      let result = minMax(newBoard, huPlayer);
+      move.score = result.score;
+    } else {
+      let result = minMax(newBoard, aiPlayer);
+      move.score = result.score;
+    }
+
+    newBoard[availSpots[i]] = move.index;
+
+    moves.push(move);
+  }
+  let bestMove;
+
+  if (player === aiPlayer) {
+    let bestScore = -10000;
+    for (let i = 0; i < moves.length; i++) {
+      if (moves[i].score > bestScore) {
+        bestScore = moves[i].score;
+        bestMove = i;
+      }
+    }
+  } else {
+    let bestScore = 10000;
+    for (let i = 0; i < moves.length; i++) {
+      if (moves[i].score < bestScore) {
+        bestScore = moves[i].score;
+        bestMove = i;
+      }
+    }
+  }
+
+  return moves[bestMove];
 }
